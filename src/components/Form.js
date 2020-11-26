@@ -72,13 +72,13 @@ export default class Form extends Component {
 
     render() {
         // console.log(this.state.isNewfile)
-        var { txttitle, Author, content, category, date,isNewfile } = this.state
+        var { txttitle, Author, content, category, date, isNewfile } = this.state
         return (
             <div>
                 <form onSubmit={this.onHandleSubmit} className="form">
                     <FormGroup>
                         <Button id="customized-dialog-title" className="btncls"
-                        onClick={() => { this.props.closeDialog() }}>
+                            onClick={() => { this.props.closeDialog() }}>
                             close
                         </Button>
                     </FormGroup>
@@ -108,15 +108,15 @@ export default class Form extends Component {
                             }}
                         />
                     </FormGroup>
-                    <FormControl>
-                        <InputLabel>{isNewfile ? 'category' :category}</InputLabel>
+                    <FormControl className="category">
+                        <InputLabel className="inp">{isNewfile ? category : 'category'}</InputLabel>
                         <Select
                             labelId="demo-simple-select-outlined-label"
                             id="demo-simple-select-outlined"
                             onChange={this.onHandleChange}
                             label="category"
                             name="category"
-                            className="category"
+
                         >
                             <MenuItem value={category} sel>
                                 {category}
@@ -126,12 +126,13 @@ export default class Form extends Component {
                             <MenuItem value='comic'>comic</MenuItem>
                             <MenuItem value='khac'>khac</MenuItem>
                         </Select>
-                        <div id="content">
-                            <small> content</small><br />
-                            <textarea onChange={this.onHandleChange}
-                                name="content" rows="5" cols="50" value={content}></textarea>
-                        </div>
                     </FormControl>
+                    <div id="content">
+                        <small> content</small><br />
+                        <textarea onChange={this.onHandleChange}
+                            name="content" rows="5" cols="50" value={content}></textarea>
+                    </div>
+
                     <FormGroup className="inline">
                         <Button className="btn" type="submit" onClick={this.onSave} variant="outlined" color="primary">
                             SAVE

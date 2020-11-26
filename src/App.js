@@ -110,12 +110,13 @@ class App extends Component {
               handleEdit = {this.handleEdit}
             />
         </Grid>
-        <Grid item md={7}>
+        <Grid item md={6}>
           <Content  
             info4 = {this.state.info4}
             rowKey = {this.state.rowKey}
               />
         </Grid>
+        <Grid item md={1}/>
       </Grid>
       );
   }

@@ -1,6 +1,4 @@
-import { IconButton, Tooltip } from '@material-ui/core';
 import React, { Component } from 'react';
-import DeleteIcon from '@material-ui/icons/Delete';
 
 
 export default class Summary extends Component {
@@ -74,7 +72,6 @@ export default class Summary extends Component {
                 {/* <DeleteIcon/>cd */}
                 <ol>
                     {this.findAuthor(this.state.info4, this.props.searchValue)}
-
                 </ol>
             </div>
         )
