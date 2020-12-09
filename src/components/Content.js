@@ -1,13 +1,14 @@
 import React, { Component } from 'react';
+import {connect} from 'react-redux'
 
-export default class Content extends Component {
+class Content extends Component {
     render() {
         // var onRender = this.props.onRender;
         var details = this.props.info4;
-        console.log(this.props.rowKey)
+        // console.log(this.props.info4)
         var rowKey = this.props.rowKey;
-        console.log(rowKey)
-        console.log(details[rowKey])
+        // console.log(rowKey)
+        // console.log(details[rowKey])
         return (
             <table>
                 <thead>
@@ -21,7 +22,7 @@ export default class Content extends Component {
                 </thead>
                 <tbody>
                     {/* <p>aaaaaa</p> */}
-                    {rowKey !== null ? <tr>
+                    {rowKey !== null && details !== null ? <tr>
                         <td >
                             {details[rowKey].txttitle}
                         </td>
@@ -44,3 +45,10 @@ export default class Content extends Component {
         )
     }
 }
+const mapStateToProps = (state) => {
+    return {
+        info4: state.info
+    }
+}
+// const mapDispatchToProps = ()
+export default  connect(mapStateToProps,null)(Content)

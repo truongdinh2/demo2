@@ -1,0 +1,1 @@
+export const INFO_CONTENT = 'INFO_CONTENT';
