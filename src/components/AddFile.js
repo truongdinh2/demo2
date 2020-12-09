@@ -7,13 +7,17 @@ class AddFile extends Component {
         this.props.addFile()
     }
     render() {
+        console.log(this.props.name)
         return (
             <>
                 <button type="button" id="btnAdd"
                     className="btn btn-primary"
-                    onClick={this.addCon}>Addfiles
+                    onClick={this.addCon}>Addfile
                 </button>
-                <button onClick={()=> {this.props.nameValue('truong')}}>Name</button>
+                <button className="btn btn-primary"
+                 onClick={()=> {this.props.nameValue('truong')}}
+                 >Name
+                 </button>
             </>
         );
     }

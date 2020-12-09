@@ -6,6 +6,7 @@ import { Component } from 'react';
 import Form from './components/Form';
 import { Button, Grid } from '@material-ui/core';
 import {connect} from 'react-redux';
+import Addfiles from './components/AddFile'
 import * as actionType from './actions' 
 class App extends Component {
   constructor(props) {
@@ -87,6 +88,7 @@ class App extends Component {
          
         </div>
         <Grid item md={12}>
+          <Addfiles />
           <div className="tittle">
             <h2>NOTEBOOK</h2>
             <button onClick={()=>{
