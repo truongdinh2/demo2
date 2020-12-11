@@ -1,29 +1,28 @@
+// import { ThumbUpSharp } from '@material-ui/icons';
 import React, { Component } from 'react';
+import { connect } from 'react-redux';
+import * as actionType from './../actions'
 
-
-export default class Summary extends Component {
+class Summary extends Component {
     constructor(props) {
         super(props);
         this.state = {
-            info4: [],
             // index:'',
             searchValue: this.props.searchValue,
             // isEdit: true,
         }
     }
     onDelete(index) {
-        var info4 = this.state.info4;
+        var info4 = this.props.info4;
         info4.splice(index, 1);
         this.setState({
             info4: info4
         })
     }
     onEdit(index) {
-
+        this.props.isEditForm();
         this.props.handleEdit(index)
-
-        // this.props.handleEdit(this.state.isEdit)
-        // console.log(index,this.state.isEdit)
+        this.props.newFile()
     }
     onShowInfo = (key) => {
         this.props.onShowInfo(key)
@@ -39,12 +38,15 @@ export default class Summary extends Component {
                     <li key={key}
                         className="list"
                     >
-                        <span onClick={() => this.onShowInfo(key)}>
+                        <span className="iconEdit">
+                        <span style={{flexGrow: '1'}}
+                        onClick={() => this.onShowInfo(key)}>
                             {infor.txttitle}
                         </span>
-                        <span>
-                            <img src="https://upload-icon.s3.us-east-2.amazonaws.com/uploads/icons/png/14974663671582988848-512.png" 
-                                alt="delete" onClick={() => this.onDelete(key)} className="icon" />
+                            <span >
+                                <img src="https://upload-icon.s3.us-east-2.amazonaws.com/uploads/icons/png/14974663671582988848-512.png"
+                                    alt="delete" onClick={() => this.onDelete(key)} className="icon" />
+                            </span>
                             <span >
                                 <img src="https://freeiconshop.com/wp-content/uploads/edd/edit-flat.png"
                                     alt="edit" className="icon" onClick={() => this.onEdit(key)} />
@@ -57,23 +59,38 @@ export default class Summary extends Component {
         })
         return result;
     }
-    componentDidMount() {
-        this.setState({
-            info4: this.props.info4
-        })
-    }
     render() {
-
+        const info4 = this.props.info4
+        console.log(this.props.info4)
+        // console.log(this.state.info4)
         return (
             <div className="summary">
-                <div className="note">
-                    <h2>List</h2>
+                <div className="note" >
+                    <h2 style={{marginBottom:"10px"}}>List</h2>
                 </div>
+                
                 {/* <DeleteIcon/>cd */}
                 <ol>
-                    {this.findAuthor(this.state.info4, this.props.searchValue)}
+                    {this.findAuthor(info4, this.props.searchValue)}
                 </ol>
             </div>
         )
     }
 }
+const mapStateToProps = (state) => {
+    return {
+        info4: state.info4
+    }
+}
+const mapDispatchToProps = (dispatch) => {
+    return {
+        isEditForm: () => {
+            dispatch(actionType.editForm())
+        },
+        newFile: () => {
+            dispatch(actionType.OldFile())
+        }
+    }
+
+}
+export default connect(mapStateToProps, mapDispatchToProps)(Summary)

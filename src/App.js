@@ -1,46 +1,24 @@
-import './App.css';
-import Search from './components/Search';
-import Content from './components/Content';
-import Summary from './components/summary';
+import { Button } from '@material-ui/core';
 import { Component } from 'react';
+import { connect } from 'react-redux';
+// import Addfiles from './components/AddFile'
+import * as actionType from './actions';
+import './style/App.css';
+import './style/container.css';
+import Content from './components/Content';
 import Form from './components/Form';
-import { Button, Grid } from '@material-ui/core';
-import {connect} from 'react-redux';
-import Addfiles from './components/AddFile'
-import * as actionType from './actions' 
+import Search from './components/Search';
+import Summary from './components/summary';
 class App extends Component {
   constructor(props) {
     super(props);
     this.state = {
       searchVl: '',
-      test: [],
-      info4: [
-        { txttitle: 'sóng', Author: 'xuân quỳnh', date: '2020-10-20', content: '-  Bài thơ Sóng Xuân Quỳnh được sáng tác năm 1967, lấy cảm hứng trong một chuyến đi thực tế tại bãi biển Diêm Điền – Thái Bình và in trong tập Hoa dọc chiến hào. - Đây là bài thơ tình yêu nổi tiếng nhất tiêu biểu cho phong cách thơ nữ tính, trữ tình của Xuân Quỳnh.', category: 'poem' }
-        , {
-          txttitle: 'vợ chồng a phủ', Author: 'Tô Hoài', date: '2020-11-25', category: 'comic book', content: 'Truyện được viết vào năm 1952 và là sản phẩm của chuyến thâm nhập thực tế, “cùng ăn, cùng ở, cùng gắn bó” với đồng bào các dân tộc miền núi Tây Bắc suốt 8 tháng của Tô Hoài trên núi cao đến các bản làng mới giải phóng.'
-        }],
-      isOnRender: false,
       // isOnEdit: false,
-      isNewfile: false,
-      isOpenDialog: false,
       rowSelected: null,
       index: null,
       rowKey: null,
     }
-  }
-  givedFile = (params) => {
-    var { info4, index, } = this.state;
-    this.setState({
-      info4: info4,
-    });
-    if (!index) {
-      info4.push(params);
-
-    } else {
-      console.log(info4[index]);
-      info4[index] = params;
-    }
-    console.log(params)
   }
   handleSearch = (params) => {
     this.setState({
@@ -54,96 +32,104 @@ class App extends Component {
     })
   }
   handleEdit = (params) => {
+    var { info4 } = this.props;
     this.setState({
-      rowSelected: this.state.info4[params],
-      isNewfile: false,
-      isOpenDialog: true,
+      rowSelected: info4[params],
+      // isNewfile: false,
       index: params,
     }, function () {
-      // console.log(this.state.isNewfile)
-      // console.log(params)
+      console.log(this.state.rowSelected)
     })
-
   }
   openDialog = () => {
-    this.setState({
-      isOpenDialog: true,
-      isNewfile: true
-    }, function () {
-      console.log(this.state.isOpenDialog)
-    })
+    // this.setState({
+    //   isNewfile: true
+    // }, function () {
+    //   console.log(this.state.isToggleForm)
+    // })
+    this.props.isNewfile()
+    this.props.isOpenForm();
   }
-  closeDialog = () => {
-    this.setState({
-      isOpenDialog: false
-    })
-  }
+
   render() {
-    var { isOpenDialog, rowSelected } = this.state;
-    console.log(isOpenDialog)
-    console.log("itemid",this.props.itemID)
+    var { rowSelected } = this.state;
+    const isToggleForm = this.props.isToggleForm;
+    // console.log(info4,"if")
     return (
-      <Grid container spacing={4}>
-        <div className={isOpenDialog ? 'modal' : ''}>
-         
-        </div>
-        <Grid item md={12}>
-          <Addfiles />
+      <div className="flexbox" >
+        <div className="header flex_item">
           <div className="tittle">
             <h2>NOTEBOOK</h2>
-            <button onClick={()=>{
-              this.props.deleteItem("123")
-            }}>123123</button>
           </div>
-        </Grid>
-        <Grid item md={1} />
-        <Grid item md={4}>
-          <Search searchVal={this.handleSearch} />
-          <Button variant="contained" onClick={this.openDialog} color="secondary"
-            className="btnAdd">
-            Addfiles
+          <div className={isToggleForm ? 'modal' : ''}>
+          </div>
+        </div>
+        <div />
+
+        {/* content_left */}
+
+        <div className="content_left flex_item">
+          <div className="search_right flex_left">
+            <Search searchVal={this.handleSearch} />
+          </div>
+          <div className=" btn_left flex_left">
+
+            <Button variant="contained" onClick={this.openDialog} color="secondary"
+              className="btnAdd btn_left flex_left">
+              Addfiles
           </Button>
+          </div>
           {
-            isOpenDialog && <Form givedFile={this.givedFile}
-              test={this.state.test}
+            isToggleForm && <Form
               handleEdit={this.state.index}
-              closeDialog={this.closeDialog}
               rowSelected={rowSelected}
-              isNewfile={this.state.isNewfile}
+            // isNewfile={this.state.isNewfile}
             />
           }
-          <Summary
-            info4={this.state.info4}
-            searchValue={this.state.searchVl}
-            onShowInfo={this.onShowInfo}
-            handleEdit={this.handleEdit}
-          />
-        </Grid>
-        <Grid item md={6}>
+          <div className="summary_flex flex_left">
+            <Summary
+              searchValue={this.state.searchVl}
+              onShowInfo={this.onShowInfo}
+              handleEdit={this.handleEdit}
+            />
+          </div>
+        </div>
+
+        {/* <div item md={1} /> */}
+
+        <div className="content_right flex_item">
           <Content
-            // info4={this.state.info4}
             rowKey={this.state.rowKey}
           />
-        </Grid>
-        <Grid item md={1} />
-      </Grid>
+        </div>
+        <div />
+      </div>
     );
   }
 }
 
-const mapStateToProps = (state) =>{
+const mapStateToProps = (state) => {
   return {
-    itemID : state.info4.id
+    itemID: state.info4.id,
+    isToggleForm: state.isToggleForm,
+    info4: state.info4
   }
 };
 
 
-const mapDispatchToProps = dispatch =>{
+const mapDispatchToProps = dispatch => {
   return {
-    deleteItem : (id) =>{
+    deleteItem: (id) => {
       dispatch(actionType.deleteItem(id))
+    },
+    isOpenForm: () => {
+      dispatch(actionType.toggleForm())
+    },
+    isNewfile: () => {
+      dispatch(actionType.newFile())
     }
+
   }
 };
 
-export default connect(mapStateToProps,mapDispatchToProps) (App);
+export default connect(mapStateToProps, mapDispatchToProps)(App);

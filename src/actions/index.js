@@ -29,3 +29,39 @@ export const testItem = (value) => {
         }
     }
 }
+export const dataLoad = () => {
+    return {
+        type: types.DATA_LOAD
+    }
+}
+export const AddFile = (file) => {
+    return {
+        type: types.ADD_FILE,
+        file // file: file
+    }
+}
+export const toggleForm = () => {
+    return {
+        type: types.TOGGLE_FORM
+    }
+}
+export const editForm = () => {
+    return {
+        type: types.TOGGLE_FORM
+    }
+}
+export const closeForm = () => {
+    return {
+        type: types.TOGGLE_FORM
+    }
+}
+export const OldFile = () => {
+    return {
+        type: types.IS_EDIT_OLD_FILE
+    }
+}
+export const newFile = () => {
+    return {
+        type: types.IS_NEW_FILE
+    }
+}

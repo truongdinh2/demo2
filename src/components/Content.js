@@ -2,9 +2,10 @@ import React, { Component } from 'react';
 import { connect } from 'react-redux';
 class Content extends Component {
     render() {
-        console.log(this.props.noteb)
+        // console.log(this.props.info4)
         // var onRender = this.props.onRender;
         var details = this.props.info4;
+        // console.log(details,'details')
         // console.log(this.props.rowKey)
         var rowKey = this.props.rowKey;
         // console.log(rowKey)
@@ -48,7 +49,7 @@ class Content extends Component {
 }
 const mapStateToProps = (state) => {
     return {
-        noteb: state.info4
+        info4: state.info4
     }
 }
 

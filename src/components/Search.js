@@ -17,7 +17,7 @@ class Search extends Component {
         e.preventDefault();
     }
     render() {
-        console.log(this.props.itemAdd)
+        // console.log(this.props.itemAdd)
         // console.log(this.state.searchValue)
         return (
             <form onSubmit={this.submit} className="search">
@@ -26,7 +26,7 @@ class Search extends Component {
                     label="Search"
                     onChange={this.onSearchValue}
                 />
-                <button onClick={() => {this.props.dataAdd("hilo a tung")}}>Add</button>
+                {/* <button onClick={() => {this.props.dataAdd("hilo a tung")}}>Add</button> */}
             </form>
         )
     }

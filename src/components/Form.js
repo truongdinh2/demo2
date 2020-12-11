@@ -2,8 +2,10 @@
 import { FormControl, FormGroup, InputLabel, MenuItem, Select, TextField } from '@material-ui/core';
 import Button from '@material-ui/core/Button';
 import React, { Component } from 'react';
+import { connect } from 'react-redux';
+import * as action from './../actions'
 
-export default class Form extends Component {
+class Form extends Component {
     constructor(props) {
         super(props);
         this.state = {
@@ -13,13 +15,13 @@ export default class Form extends Component {
             category: '',
             date: '',
             exam: [],
-            isNewfile: !this.props.isNewfile,
-            // isNewfile:this.props.isNewfile,
+            // isNewfile: this.props.isNewfile,
         }
     }
     componentDidMount() {
         var { rowSelected } = this.props;
         var { isNewfile } = this.props;
+        console.log(isNewfile)
         // console.log(isNewfile)
         if (rowSelected) {
             this.setState({
@@ -34,6 +36,9 @@ export default class Form extends Component {
             this.onReset()
         }
     }
+    componentDidUpdate() {
+
+    }
     onHandleChange = (event) => {
         const target = event.target;
         const name = target.name;
@@ -45,7 +50,7 @@ export default class Form extends Component {
             [name]: value,
             isOnEdit: this.props.onEdit
         }, function () {
-            console.log(this.state)
+            // console.log(this.state)
         })
         // console.log(value)
     }
@@ -64,10 +69,16 @@ export default class Form extends Component {
         })
     }
     onSave = () => {
-        this.props.givedFile(this.state);
-        this.setState({
-            isNewfile: false
-        })
+
+        this.props.isNewFile();
+        if(this.props.isNewfile){
+
+            this.props.onAddForm(this.state)
+           this.onReset()
+        }
+        else{
+            console.log("123123")
+        }
     }
 
     render() {
@@ -78,7 +89,7 @@ export default class Form extends Component {
                 <form onSubmit={this.onHandleSubmit} className="form">
                     <FormGroup>
                         <Button id="customized-dialog-title" className="btncls"
-                            onClick={() => { this.props.closeDialog() }}>
+                            onClick={() => { this.props.isCloseForm() }}>
                             close
                         </Button>
                     </FormGroup>
@@ -109,7 +120,7 @@ export default class Form extends Component {
                         />
                     </FormGroup>
                     <FormControl className="category">
-                        <InputLabel className="inp">{isNewfile ? category : 'category'}</InputLabel>
+                        <InputLabel className="inp">{isNewfile ? 'category' : category}</InputLabel>
                         <Select
                             labelId="demo-simple-select-outlined-label"
                             id="demo-simple-select-outlined"
@@ -147,5 +158,27 @@ export default class Form extends Component {
         )
     }
 }
+const mapStateToProps = (state) => {
+    console.log(state)
+    return {
+        state:state,
+        isNewfile:state.isEditNewFile
+    }
+}
+const mapDispatchToProps = (dispatch, props) => {
+    return {
+        onAddForm: (file) => {
+            dispatch(action.AddFile(file))
+        },
+        isCloseForm: () => {
+            dispatch(action.closeForm())
+        },
+        isNewFile: () => {
+            dispatch(action.newFile())
+          }
+          
 
+    }
+}
+export default connect(mapStateToProps, mapDispatchToProps)(Form);
 

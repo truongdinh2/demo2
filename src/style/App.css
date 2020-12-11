@@ -1,14 +1,11 @@
-.form{
-  position: absolute;
-  top: 300px;
-  left: 600px;
-}
+
+
 .tittle{
   text-align: center;
   color: white;
   text-shadow: 1px 1px 2px black, 0 0 25px blue, 0 0 5px darkblue;
-  height: 100px;
-  padding-top:  40px;
+  height: 80px;
+  padding-top:  30px;
 }
 .icon{
   height: 20px;
@@ -35,11 +32,13 @@
   padding-left: 10px;
   color: blue;
   cursor: pointer;
-  font-size: 20px;
+  font-size: 1.2em;
   transition: 0.3s;
 }
 ol{
   margin-top: 20px;
+  max-height: 200px;
+  overflow: auto;
 }
 .summary{
   width: 100%;
@@ -61,7 +60,7 @@ ol{
 table {
   border-collapse: collapse;
   border: 1px solid #ddd;
-  width: 100%;
+  width: 552px;
 }
 
  td {
@@ -91,7 +90,10 @@ tr:hover {background-color:#f5f5f5;}
   padding: 40px 20px;
   height: 370px;
   z-index: 10;
+  position: relative;
   background-color: white;
+  margin-left: 50px;
+  /* margin: auto; */
 }
 .btn{
   width: 60px;
@@ -142,4 +144,42 @@ small{
 }
 .inp{
   margin: auto !important;
+}
+.iconEdit{
+  /* border: 1px solid gray; */
+  /* margin-right: 10px ; */
+  display: flex;
+  justify-content: flex-end;
+  margin-right: 10px;
+}
+@media screen and (min-width: 1454px) {
+  table {
+
+    width: 700px;
+  }
+  .iconEdit{
+    margin-right: 50px;
+  }
+  .tittle{
+    height: 100px;
+    padding-top:  50px;
+  }
+  .list{
+    margin-top: 10px;
+    text-align: left;
+    padding-left: 10px;
+  }
+  ol{
+    margin-top: 20px;
+    max-height: 300px;
+    overflow: auto;
+  }
+  .summary{
+    width: 100%;
+    /* box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2), 0 6px 20px 0 rgba(0, 0, 0, 0.19); */
+    /* text-align: center; */
+    padding: 20px 0;
+    height: 250px;
+    box-sizing: border-box;
+  }
 }
