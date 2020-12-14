@@ -3,7 +3,8 @@ import { FormControl, FormGroup, InputLabel, MenuItem, Select, TextField } from 
 import Button from '@material-ui/core/Button';
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
-import * as action from './../actions'
+import * as action from './../actions';
+
 
 class Form extends Component {
     constructor(props) {
@@ -14,45 +15,59 @@ class Form extends Component {
             content: '',
             category: '',
             date: '',
-            exam: [],
             // isNewfile: this.props.isNewfile,
         }
     }
+    // componentDidMount() {
+    //     var { rowSelected } = this.props;
+    //     var { isNewfile } = this.props;
+    //     console.log(isNewfile, 'isNewFile-')
+    //     // console.log(isNewfile)
+    //     if (rowSelected) {
+    //         this.setState({
+    //             txttitle: rowSelected.txttitle,
+    //             Author: rowSelected.Author,
+    //             content: rowSelected.content,
+    //             category: rowSelected.category,
+    //             date: rowSelected.date,
+    //         })
+    //     }
+    //     if (isNewfile === true) {
+    //         this.onReset()
+    //     }
+    // }
     componentDidMount() {
-        var { rowSelected } = this.props;
-        var { isNewfile } = this.props;
-        console.log(isNewfile)
-        // console.log(isNewfile)
-        if (rowSelected) {
+        var { indexEdit, info4 } = this.props;
+        // console.log(indexEdit, info4)
+        if (!this.props.isNewfile) {
             this.setState({
-                txttitle: rowSelected.txttitle,
-                Author: rowSelected.Author,
-                content: rowSelected.content,
-                category: rowSelected.category,
-                date: rowSelected.date,
+                txttitle: info4[indexEdit].txttitle,
+                Author: info4[indexEdit].Author,
+                content: info4[indexEdit].content,
+                category: info4[indexEdit].category,
+                date: info4[indexEdit].date,
             })
         }
-        if (isNewfile === true) {
-            this.onReset()
-        }
-    }
-    componentDidUpdate() {
-
     }
     onHandleChange = (event) => {
         const target = event.target;
         const name = target.name;
         const value = target.value;
-        if (this.props.rowSelected) {
+        // if (this.props.rowSelected) {
 
-        }
+        // }
         this.setState({
             [name]: value,
             isOnEdit: this.props.onEdit
         }, function () {
-            // console.log(this.state)
+            // // console.log(this.state)
+            // if(this.state.date !== ''){
+            //     this.setState({
+            //         errors: ''
+            //     })
+            // }
+            // console.log(this.state.date,"date")
         })
-        // console.log(value)
     }
     onHandleSubmit = (event) => {
         event.preventDefault();
@@ -69,20 +84,33 @@ class Form extends Component {
         })
     }
     onSave = () => {
+        var { txttitle, Author, content, category, date } = this.state;
+        var indexEdit = this.props.indexEdit;
+        var info4 = this.props.info4;
+        if (txttitle !== '' &&
+            Author !== '' &&
+            content !== '' &&
+            category !== '' &&
+            date !== ''
+        ) {
+            this.props.isCloseForm();
+            if (this.props.isNewfile) {
+                this.props.onAddForm(this.state)
+                this.onReset()
+            } else {
+                this.props.onEditSubmit(indexEdit,this.state)
+                // console.log(this.state)
+                // info4[indexEdit] = this.state;
+                alert('edit')
 
-        this.props.isNewFile();
-        if(this.props.isNewfile){
-
-            this.props.onAddForm(this.state)
-           this.onReset()
+            }
         }
-        else{
-            console.log("123123")
-        }
+        // console.log(txttitle)
+        // alert(category)
+        // console.log(category)
     }
 
     render() {
-        // console.log(this.state.isNewfile)
         var { txttitle, Author, content, category, date, isNewfile } = this.state
         return (
             <div>
@@ -96,14 +124,27 @@ class Form extends Component {
                     <TextField name="txttitle"
                         label="Work"
                         value={txttitle}
+                        type="text"
                         className="form-control" placeholder="Title"
                         onChange={this.onHandleChange}
+                        // 
+                        required
+                    // defaultValue="Hello World"
+                    // helperText="Incorrect entry."
                     />
+
+                    {/* {errors && <p className="err">loi roi ban oi</p>} */}
                     <TextField name="Author"
+                        // type="email"
                         label="Author"
                         value={Author}
                         className="form-control"
                         onChange={this.onHandleChange}
+                        required
+                    // id="standard-error-helper-text"
+                    // label="Error"
+                    // defaultValue="Hello World"
+                    // helperText="Incorrect entry."
                     />
                     <FormGroup>
                         <TextField
@@ -117,6 +158,9 @@ class Form extends Component {
                             InputLabelProps={{
                                 shrink: true,
                             }}
+                            required
+                        // label="Error"
+                        // defaultValue="Hello World"
                         />
                     </FormGroup>
                     <FormControl className="category">
@@ -127,7 +171,10 @@ class Form extends Component {
                             onChange={this.onHandleChange}
                             label="category"
                             name="category"
-
+                            error
+                            required
+                        // label="Error"
+                        // defaultValue="Hello World"
                         >
                             <MenuItem value={category} sel>
                                 {category}
@@ -141,7 +188,7 @@ class Form extends Component {
                     <div id="content">
                         <small> content</small><br />
                         <textarea onChange={this.onHandleChange}
-                            name="content" rows="5" cols="50" value={content}></textarea>
+                            name="content" required rows="5" cols="50" value={content}></textarea>
                     </div>
 
                     <FormGroup className="inline">
@@ -161,8 +208,9 @@ class Form extends Component {
 const mapStateToProps = (state) => {
     console.log(state)
     return {
-        state:state,
-        isNewfile:state.isEditNewFile
+        info4: state.info4,
+        isNewfile: state.isEditNewFile,
+        indexEdit: state.indexDel.index,
     }
 }
 const mapDispatchToProps = (dispatch, props) => {
@@ -175,9 +223,10 @@ const mapDispatchToProps = (dispatch, props) => {
         },
         isNewFile: () => {
             dispatch(action.newFile())
-          }
-          
-
+        },
+        onEditSubmit: (index, data) => {
+            dispatch(action.onEditSubmit(index, data))
+        }
     }
 }
 export default connect(mapStateToProps, mapDispatchToProps)(Form);

@@ -1,7 +1,7 @@
 // import { ThumbUpSharp } from '@material-ui/icons';
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
-import * as actionType from './../actions'
+import * as actionType from './../actions/index'
 
 class Summary extends Component {
     constructor(props) {
@@ -13,6 +13,7 @@ class Summary extends Component {
         }
     }
     onDelete(index) {
+        this.props.indexDel(index);
         var info4 = this.props.info4;
         info4.splice(index, 1);
         this.setState({
@@ -21,8 +22,9 @@ class Summary extends Component {
     }
     onEdit(index) {
         this.props.isEditForm();
-        this.props.handleEdit(index)
-        this.props.newFile()
+        // this.props.handleEdit(index);
+        this.props.indexEdit(index)
+        this.props.newFile();
     }
     onShowInfo = (key) => {
         this.props.onShowInfo(key)
@@ -62,7 +64,6 @@ class Summary extends Component {
     render() {
         const info4 = this.props.info4
         console.log(this.props.info4)
-        // console.log(this.state.info4)
         return (
             <div className="summary">
                 <div className="note" >
@@ -89,6 +90,12 @@ const mapDispatchToProps = (dispatch) => {
         },
         newFile: () => {
             dispatch(actionType.OldFile())
+        },
+        indexDel: (index)=>{
+            dispatch(actionType.indexDel(index))
+        },
+        indexEdit: (index) => {
+            dispatch(actionType.indexEdit(index))
         }
     }
 

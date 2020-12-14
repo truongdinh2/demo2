@@ -9,4 +9,8 @@ export const EDIT_FORM = 'EDIT_FORM';
 export const CLOSE_FORM = 'CLOSE_FORM';
 export const IS_EDIT_OLD_FILE = 'IS_EDIT_OLD_FILE';
 export const IS_NEW_FILE = 'IS_NEW_FILE';
+export const INDEX_DEL = 'INDEX_DEL';
+export const INDEX_EDIT = 'INDEX_EDIT';
+export const ON_EDIT_SUBMIT = 'ON_EDIT_SUBMIT';
+
 

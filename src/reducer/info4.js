@@ -11,7 +11,9 @@ const myReducer = (state = initialState, action) => {
     // return state
     switch (action.type) {
         case types.LIST_ALL:
-            return state;
+            return {
+                ...state
+            };
         case types.DELETE_ITEM:
 
             return {
@@ -24,15 +26,23 @@ const myReducer = (state = initialState, action) => {
                 name: action.payload.value,
             }
         case types.DATA_LOAD:
-            return state;
+            return {
+                ...state
+            };
         case types.ADD_FILE:
             // console.log(action.file)
             state.push(action.file)
             return [...state];
-
+        case types.ON_EDIT_SUBMIT:
+            var index = action.payload.index;
+            var data = action.payload.data;
+            state[index] = data;
+            console.log(state)
+            console.log(action)
+            return [...state]
         default: return state;
     }
 }
-console.log(initialState)
+// console.log(initialState)
 
 export default myReducer;

@@ -29,7 +29,7 @@ width: 552px;
 .content_right{
     border: 1px solid pink;
     /* width: 552px; */
-    margin-top: 50px;
+    margin: 20px 0 70px;
     
 }
 @media screen and (min-width: 1454px) {
@@ -41,7 +41,7 @@ width: 552px;
         justify-content: space-around;
     }
     .flex_item {
-    margin: 20px 50px;
+    margin: 30px 10px;
     width: 552px;
     }
     .header{
@@ -69,7 +69,8 @@ width: 552px;
     .content_right{
         /* border: 1px solid pink; */
         width: 700px;
-        /* margin-top: 50px; */
+        /* padding: 200px 0; */
+        /* margin-bottom: 80px; */
         
     }
 }

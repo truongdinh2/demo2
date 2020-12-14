@@ -31,16 +31,16 @@ class App extends Component {
       rowKey: key,
     })
   }
-  handleEdit = (params) => {
-    var { info4 } = this.props;
-    this.setState({
-      rowSelected: info4[params],
-      // isNewfile: false,
-      index: params,
-    }, function () {
-      console.log(this.state.rowSelected)
-    })
-  }
+  // handleEdit = (params) => {
+  //   var { info4 } = this.props;
+  //   this.setState({
+  //     rowSelected: info4[params],
+  //     // isNewfile: false,
+  //     index: params,
+  //   }, function () {
+  //     console.log(this.state.rowSelected)
+  //   })
+  // }
   openDialog = () => {
     // this.setState({
     //   isNewfile: true
@@ -81,8 +81,8 @@ class App extends Component {
           </div>
           {
             isToggleForm && <Form
-              handleEdit={this.state.index}
-              rowSelected={rowSelected}
+              // handleEdit={this.state.index}
+              // rowSelected={rowSelected}
             // isNewfile={this.state.isNewfile}
             />
           }
@@ -90,7 +90,7 @@ class App extends Component {
             <Summary
               searchValue={this.state.searchVl}
               onShowInfo={this.onShowInfo}
-              handleEdit={this.handleEdit}
+              // handleEdit={this.handleEdit}
             />
           </div>
         </div>
@@ -128,7 +128,7 @@ const mapDispatchToProps = dispatch => {
     isNewfile: () => {
       dispatch(actionType.newFile())
     }
-
+    
   }
 };
 

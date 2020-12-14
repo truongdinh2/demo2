@@ -2,13 +2,17 @@ import React, { Component } from 'react';
 import { connect } from 'react-redux';
 class Content extends Component {
     render() {
-        // console.log(this.props.info4)
+        // console.log(this.props.index)
+        // var index = this.props.index;
+        // console.log(index, 'index')
         // var onRender = this.props.onRender;
-        var details = this.props.info4;
-        // console.log(details,'details')
-        // console.log(this.props.rowKey)
+        var details = this.props.info4 !== null ? this.props.info4 : '';
+        // var details = details_all;
+    console.log(this.props.info4)
         var rowKey = this.props.rowKey;
         // console.log(rowKey)
+        // console.log(rowKey)
+        // console.log(details_all, details)
         // console.log(details[rowKey])
         return (
             <table>
@@ -22,8 +26,11 @@ class Content extends Component {
                     </tr>
                 </thead>
                 <tbody>
+                    {/* {console.log(details[rowKey])} */}
+                    {details !== this.props.info4 ? alert('hi') : ''}
                     {/* <p>aaaaaa</p> */}
-                    {rowKey !== null ? <tr>
+                    {details[rowKey] !== undefined ? 
+                    <tr>
                         <td >
                             {details[rowKey].txttitle}
                         </td>
@@ -49,7 +56,8 @@ class Content extends Component {
 }
 const mapStateToProps = (state) => {
     return {
-        info4: state.info4
+        info4: state.info4,
+        index: state.indexDel.index
     }
 }
 

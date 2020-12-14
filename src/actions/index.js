@@ -65,3 +65,27 @@ export const newFile = () => {
         type: types.IS_NEW_FILE
     }
 }
+export const indexDel = (index) => {
+    console.log(index , 'index')
+    return {
+        type: types.INDEX_DEL,
+        payload: index
+
+    }
+}
+export const indexEdit = (index) => {
+    return{
+        type: types.INDEX_EDIT,
+        payload: index
+    }
+}
+export const onEditSubmit = (index,data) => {
+    console.log(index,data)
+    return{
+        type: types.ON_EDIT_SUBMIT,
+        payload: {
+            index,
+            data
+        }
+    }
+}

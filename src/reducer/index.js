@@ -2,7 +2,8 @@ import { combineReducers } from 'redux';
 import info4 from './info4';
 import table from './table';
 import isToggleForm from './isDisplayForm'
-import isEditNewFile from './isEditNewFile'
+import isEditNewFile from './isEditNewFile';
+import indexDel from './indexDel';
 
 const myReducers = combineReducers ({
     // console.log('hi');
@@ -10,7 +11,7 @@ const myReducers = combineReducers ({
     table,
     isToggleForm,
     isEditNewFile,
+    indexDel
 
 });
-// console.log(info4)
 export default myReducers;
